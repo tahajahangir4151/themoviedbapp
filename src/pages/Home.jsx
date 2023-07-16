@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Banner from "../components/Banner";
 import { Box } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import TrendingCard from "../components/TrendingCard";
 import TrendingBtn from "../components/TrendingBtn";
 import {
@@ -18,21 +18,28 @@ import Loader from "../components/Loader";
 import WhatspopularBtn from "../components/WhatspopularBtn";
 import FreeToWatchBtn from "../components/FreeToWatchBtn";
 
-
 //mapStateToProps, mapDispatchToProps. connect
 //useSelector.
 //useDispatch
-const Home = () => {
-  const dispatch = useDispatch();
-  const trendingToday = useSelector((state) => state.trendingToday);
-  const trendingThisWeek = useSelector((state) => state.trendingThisWeek);
-  const popularStreaming = useSelector((state) => state.popularStreaming);
-  const popularOntv = useSelector((state) => state.popularOntv);
-  const popularForRent = useSelector((state) => state.popularForRent);
-  const popularInTheaters = useSelector((state) => state.popularInTheaters);
-  const freeToWatchMovies = useSelector((state) => state.freeToWatchMovies);
-  const freeToWatchTv = useSelector((state) => state.freeToWatchTv);
-  const loading = useSelector((state) => state.loading);
+const Home = ({
+  trendingToday,
+  trendingThisWeek,
+  popularStreaming,
+  popularOntv,
+  popularForRent,
+  popularInTheaters,
+  freeToWatchMovies,
+  freeToWatchTv,
+  loading,
+  fetchTrendingThisWeek,
+  fetchTrendingToday,
+  fetchPopularStreaming,
+  fetchPopularOnTv,
+  fetchPopularForRent,
+  fetchPopularInTheaters,
+  fetchFreeToWatchMovies,
+  fetchFreeToWatchTv,
+}) => {
   const [activeButton, setActiveButton] = useState("today");
   const [activeWhatsPopularBtn, setActiveWhatsPopularBtn] =
     useState("streaming");
@@ -41,38 +48,38 @@ const Home = () => {
   const handleButtonClick = (buttonName) => {
     setActiveButton(buttonName);
     if (buttonName === "thisWeek") {
-      dispatch(fetchTrendingThisWeek());
+      fetchTrendingThisWeek();
     } else if (buttonName === "today") {
-      dispatch(fetchTrendingToday());
+      fetchTrendingToday();
     }
   };
 
   const handleButtonClickWhatsPopular = (buttonName) => {
     setActiveWhatsPopularBtn(buttonName);
     if (buttonName === "on tv") {
-      dispatch(fetchPopularOnTv());
+      fetchPopularOnTv();
     } else if (buttonName === "streaming") {
-      dispatch(fetchPopularStreaming());
+      fetchPopularStreaming();
     } else if (buttonName === "for rent") {
-      dispatch(fetchPopularForRent());
+      fetchPopularForRent();
     } else if (buttonName === "in theaters") {
-      dispatch(fetchPopularInTheaters());
+      fetchPopularInTheaters();
     }
   };
 
   const handleFreeToWatchButtonClick = (buttonName) => {
     setActiveFreeToWatchBtn(buttonName);
     if (buttonName === "movies") {
-      dispatch(fetchFreeToWatchMovies());
+      fetchFreeToWatchMovies();
     } else if (buttonName === "tv") {
-      dispatch(fetchFreeToWatchTv());
+      fetchFreeToWatchTv();
     }
   };
   useEffect(() => {
-    dispatch(fetchTrendingToday());
-    dispatch(fetchPopularStreaming());
-    dispatch(fetchFreeToWatchMovies());
-  }, [dispatch]);
+    fetchTrendingToday();
+    fetchPopularStreaming();
+    fetchFreeToWatchMovies();
+  }, [fetchTrendingToday, fetchPopularStreaming, fetchFreeToWatchMovies]);
 
   let trendingData;
   if (activeButton === "thisWeek") {
@@ -143,4 +150,27 @@ const Home = () => {
   );
 };
 
-export default Home;
+const mapStateToProps = (state) => ({
+  trendingToday: state.trendingToday,
+  trendingThisWeek: state.trendingThisWeek,
+  popularStreaming: state.popularStreaming,
+  popularOntv: state.popularOntv,
+  popularForRent: state.popularForRent,
+  popularInTheaters: state.popularInTheaters,
+  freeToWatchMovies: state.freeToWatchMovies,
+  freeToWatchTv: state.freeToWatchTv,
+  loading: state.loading,
+});
+
+const mapDispatchToProps = {
+  fetchTrendingToday,
+  fetchTrendingThisWeek,
+  fetchPopularStreaming,
+  fetchPopularOnTv,
+  fetchPopularForRent,
+  fetchPopularInTheaters,
+  fetchFreeToWatchMovies,
+  fetchFreeToWatchTv,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
