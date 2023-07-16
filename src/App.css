@@ -1,0 +1,129 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Source Sans Pro", Arial, sans-serif;
+}
+header,
+.nav_wrapper,
+.media {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+body {
+  padding-top: 64px;
+}
+header {
+  align-items: center;
+  top: 0;
+  left: 0;
+  background-color: #032541;
+  height: 64px;
+  position: fixed;
+}
+.media {
+  justify-content: space-between;
+  position: relative;
+  top: 0;
+  left: 0;
+  padding: 0 40px;
+}
+.nav_wrapper {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  align-items: center;
+  overflow: visible;
+  position: relative;
+  z-index: 1;
+}
+.logo > .logo_img {
+  height: 120px;
+}
+nav {
+  display: flex;
+}
+
+.dropdown {
+  position: relative;
+  display: flex;
+}
+
+.dropdown-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 17px;
+  /* font-weight: bold; */
+  padding: 10px;
+}
+
+.dropdown-menu {
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 100%;
+  width: 200px;
+  transition: opacity 0.2s ease-in-out;
+  z-index: 2;
+}
+
+.dropdown-menu li {
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.dropdown-menu li .dropdown-link {
+  padding: 10px;
+  color: #000;
+  text-decoration: none;
+}
+
+.dropdown-menu li:hover {
+  background-color: gray;
+  color: white;
+}
+.right-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+.right-navbar > div {
+  margin-left: 20px;
+}
+
+.add-icon,
+.language-icon,
+.notification-icon,
+.accountCircle-icon,
+.search-icon {
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 20px;
+  margin-left: 10px;
+}
+
+.search-icon {
+  color: blue;
+}
+.footer {
+  background-color: #032541;
+  color: white;
+  height: 30px;
+  text-align: center;
+  padding: 7px;
+}
