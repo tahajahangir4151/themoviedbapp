@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Banner from "../components/Banner";
 import { Box } from "@mui/material";
 import { connect } from "react-redux";
-import TrendingCard from "../components/TrendingCard";
+import TrendingCard from "../components/Card";
 import TrendingBtn from "../components/TrendingBtn";
 import {
   fetchFreeToWatchMovies,
@@ -18,9 +18,6 @@ import Loader from "../components/Loader";
 import WhatspopularBtn from "../components/WhatspopularBtn";
 import FreeToWatchBtn from "../components/FreeToWatchBtn";
 
-//mapStateToProps, mapDispatchToProps. connect
-//useSelector.
-//useDispatch
 const Home = ({
   trendingToday,
   trendingThisWeek,
@@ -30,7 +27,6 @@ const Home = ({
   popularInTheaters,
   freeToWatchMovies,
   freeToWatchTv,
-  loading,
   fetchTrendingThisWeek,
   fetchTrendingToday,
   fetchPopularStreaming,
@@ -44,6 +40,9 @@ const Home = ({
   const [activeWhatsPopularBtn, setActiveWhatsPopularBtn] =
     useState("streaming");
   const [activeFreeToWatchBtn, setActiveFreeToWatchBtn] = useState("movies");
+  const [trendingLoading, setTrendingLoading] = useState(false);
+  const [popularLoading, setPopularLoading] = useState(false);
+  const [freeToWatchLoading, setFreeToWatchLoading] = useState(false);
 
   const handleButtonClick = (buttonName) => {
     setActiveButton(buttonName);
@@ -75,36 +74,17 @@ const Home = ({
       fetchFreeToWatchTv();
     }
   };
+
   useEffect(() => {
-    fetchTrendingToday();
-    fetchPopularStreaming();
-    fetchFreeToWatchMovies();
+    setTrendingLoading(true);
+    fetchTrendingToday().then(() => setTrendingLoading(false));
+
+    setPopularLoading(true);
+    fetchPopularStreaming().then(() => setPopularLoading(false));
+
+    setFreeToWatchLoading(true);
+    fetchFreeToWatchMovies().then(() => setFreeToWatchLoading(false));
   }, [fetchTrendingToday, fetchPopularStreaming, fetchFreeToWatchMovies]);
-
-  let trendingData;
-  if (activeButton === "thisWeek") {
-    trendingData = trendingThisWeek;
-  } else {
-    trendingData = trendingToday;
-  }
-
-  let popularData;
-  if (activeWhatsPopularBtn === "streaming") {
-    popularData = popularStreaming;
-  } else if (activeWhatsPopularBtn === "on tv") {
-    popularData = popularOntv;
-  } else if (activeWhatsPopularBtn === "for rent") {
-    popularData = popularForRent;
-  } else if (activeWhatsPopularBtn === "in theaters") {
-    popularData = popularInTheaters;
-  }
-
-  let freeToWatchData;
-  if (activeFreeToWatchBtn === "movies") {
-    freeToWatchData = freeToWatchMovies;
-  } else if (activeFreeToWatchBtn === "tv") {
-    freeToWatchData = freeToWatchTv;
-  }
 
   return (
     <>
@@ -116,10 +96,15 @@ const Home = ({
           activeButton={activeButton}
           handleButtonClick={handleButtonClick}
         />
-        {loading ? (
+        {trendingLoading ? (
           <Loader />
         ) : (
-          <TrendingCard data={trendingData} loading={loading} />
+          <TrendingCard
+            data={
+              activeButton === "thisWeek" ? trendingThisWeek : trendingToday
+            }
+            loading={trendingLoading}
+          />
         )}
 
         {/* Popular Section  */}
@@ -127,27 +112,48 @@ const Home = ({
           activeWhatsPopularBtn={activeWhatsPopularBtn}
           handleButtonClickWhatsPopular={handleButtonClickWhatsPopular}
         />
-        {loading ? (
+        {popularLoading ? (
           <Loader />
         ) : (
-          <TrendingCard data={popularData} loading={loading} />
+          <TrendingCard data={getPopularData()} loading={popularLoading} />
         )}
 
         {/* Free To Watch Section  */}
-
         <FreeToWatchBtn
           activeFreeToWatchBtn={activeFreeToWatchBtn}
           handleFreeToWatchButtonClick={handleFreeToWatchButtonClick}
         />
-
-        {loading ? (
+        {freeToWatchLoading ? (
           <Loader />
         ) : (
-          <TrendingCard data={freeToWatchData} loading={loading} />
+          <TrendingCard
+            data={getFreeToWatchData()}
+            loading={freeToWatchLoading}
+          />
         )}
       </Box>
     </>
   );
+
+  function getPopularData() {
+    if (activeWhatsPopularBtn === "streaming") {
+      return popularStreaming;
+    } else if (activeWhatsPopularBtn === "on tv") {
+      return popularOntv;
+    } else if (activeWhatsPopularBtn === "for rent") {
+      return popularForRent;
+    } else if (activeWhatsPopularBtn === "in theaters") {
+      return popularInTheaters;
+    }
+  }
+
+  function getFreeToWatchData() {
+    if (activeFreeToWatchBtn === "movies") {
+      return freeToWatchMovies;
+    } else if (activeFreeToWatchBtn === "tv") {
+      return freeToWatchTv;
+    }
+  }
 };
 
 const mapStateToProps = (state) => ({
@@ -159,7 +165,6 @@ const mapStateToProps = (state) => ({
   popularInTheaters: state.popularInTheaters,
   freeToWatchMovies: state.freeToWatchMovies,
   freeToWatchTv: state.freeToWatchTv,
-  loading: state.loading,
 });
 
 const mapDispatchToProps = {
