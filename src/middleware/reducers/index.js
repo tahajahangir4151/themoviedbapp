@@ -9,6 +9,9 @@ const initialState = {
   freeToWatchTv: [],
   popularMovies: [],
   upcomingMovies: [],
+  nowPlayingMovies: [],
+  topRatedMovies: [],
+  popularTvShows: [],
   airingTodayTvShows: [],
   tvShowsOnTv: [],
   topRatedTvShows: [],
@@ -28,6 +31,9 @@ const reducer = (state = initialState, action) => {
     case "FETCH_FREE_TO_WATCH_TV__REQUEST":
     case "FETCH_POPULAR_MOVIES_REQUEST":
     case "FETCH_UPCOMING_MOVIES_REQUEST":
+    case "FETCH_NOW_PLAYING_MOVIES_REQUEST":
+    case "FETCH_TOP_RATED_MOVIES_REQUEST":
+    case "FETCH_POPULAR_TV_SHOWS_REQUEST":
     case "FETCH_AIRING_TODAY_TV_SHOWS_REQUEST":
     case "FETCH_TV_SHOWS_ON_TV_REQUEST":
     case "FETCH_TOP_RATED_TV_SHOWS_REQUEST":
@@ -99,6 +105,24 @@ const reducer = (state = initialState, action) => {
         upcomingMovies: action.payload,
         loading: false,
       };
+    case "FETCH_NOW_PLAYING_MOVIES_SUCCESS":
+      return {
+        ...state,
+        nowPlayingMovies: action.payload,
+        loading: false,
+      };
+    case "FETCH_TOP_RATED_MOVIES_SUCCESS":
+      return {
+        ...state,
+        topRatedMovies: action.payload,
+        loading: false,
+      };
+    case "FETCH_POPULAR_TV_SHOWS_SUCCESS":
+      return {
+        ...state,
+        popularTvShows: action.payload,
+        loading: false,
+      };
     case "FETCH_AIRING_TODAY_TV_SHOWS_SUCCESS":
       return {
         ...state,
@@ -133,6 +157,9 @@ const reducer = (state = initialState, action) => {
     case "FETCH_FREE_TO_WATCH_TV_FAILURE":
     case "FETCH_POPULAR_MOVIES_FAILURE":
     case "FETCH_UPCOMING_MOVIES_FAILURE":
+    case "FETCH_NOW_PLAYING_MOVIES_FAILURE":
+    case "FETCH_TOP_RATED_MOVIES_FAILURE":
+    case "FETCH_POPULAR_TV_SHOWS_FAILURE":
     case "FETCH_AIRING_TODAY_TV_SHOWS_FAILURE":
     case "FETCH_TV_SHOWS_ON_TV_FAILURE":
     case "FETCH_TOP_RATED_TV_SHOWS_FAILURE":

@@ -3,16 +3,16 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchAiringTodayTvShows,
-  fetchPopularForRent,
-  fetchPopularInTheaters,
+  fetchNowPlayingMovies,
   fetchPopularMovies,
-  fetchPopularOnTv,
   fetchPopularPeople,
+  fetchTopRatedMovies,
   fetchTopRatedTvShows,
   fetchTvShowsOnTv,
   fetchUpcomigMovies,
 } from "../middleware/actions";
 import { Contexts } from "../contexts/contexts";
+import { fetchPopularTvShows } from "../middleware/actions/tvShows.action";
 
 const DropDown = () => {
   const { setMovies, setTvShows, setActiveData, setPopularPeople } =
@@ -25,10 +25,10 @@ const DropDown = () => {
   const dispatch = useDispatch();
 
   const popularMovies = useSelector((state) => state.popularMovies);
-  const nowPlayingMovies = useSelector((state) => state.popularInTheaters);
+  const nowPlayingMovies = useSelector((state) => state.nowPlayingMovies);
   const upComingMovies = useSelector((state) => state.upcomingMovies);
-  const topRated = useSelector((state) => state.popularForRent);
-  const popularTvShows = useSelector((state) => state.popularOntv);
+  const topRated = useSelector((state) => state.topRatedMovies);
+  const popularTvShows = useSelector((state) => state.popularTvShows);
   const airingTodayTvShows = useSelector((state) => state.airingTodayTvShows);
   const tvShowsOnTv = useSelector((state) => state.tvShowsOnTv);
   const topRatedTvShows = useSelector((state) => state.topRatedTvShows);
@@ -36,10 +36,10 @@ const DropDown = () => {
 
   useEffect(() => {
     dispatch(fetchPopularMovies());
-    dispatch(fetchPopularInTheaters());
+    dispatch(fetchNowPlayingMovies());
     dispatch(fetchUpcomigMovies());
-    dispatch(fetchPopularForRent());
-    dispatch(fetchPopularOnTv());
+    dispatch(fetchTopRatedMovies());
+    dispatch(fetchPopularTvShows());
     dispatch(fetchAiringTodayTvShows());
     dispatch(fetchTvShowsOnTv());
     dispatch(fetchTopRatedTvShows());
