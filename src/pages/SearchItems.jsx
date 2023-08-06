@@ -29,7 +29,7 @@ const SearchItems = ({
   }
 
   const filteredData = searchResults.filter(
-    (item) => item.backdrop_path !== null
+    (item) => item.backdrop_path !== null || item.backdrop_path !== undefined
   );
 
   if (filteredData.length === 0) {
@@ -95,7 +95,7 @@ const SearchItems = ({
                   >
                     <CardMedia
                       component="img"
-                      image={`${imageBaseUrl}${item.backdrop_path} `}
+                      image={`${imageBaseUrl}${item.backdrop_path}`}
                       alt={item.title || item.original_title}
                     />
                   </Link>
