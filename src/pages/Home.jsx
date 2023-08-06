@@ -13,6 +13,14 @@ import {
   fetchPopularStreaming,
   fetchTrendingThisWeek,
   fetchTrendingToday,
+  fetchMovieDetail,
+  fetchPopularOnTvDetail,
+  fetchFreeToWatchTvDetail,
+  setDetailData,
+  setButtonName,
+  fetchMovieCast,
+  fetchFreeToWatchTvCast,
+  fetchPopularOnTvCast,
 } from "../middleware/actions";
 import Loader from "../components/Loader";
 import WhatspopularBtn from "../components/WhatspopularBtn";
@@ -35,6 +43,16 @@ const Home = ({
   fetchPopularInTheaters,
   fetchFreeToWatchMovies,
   fetchFreeToWatchTv,
+  fetchMovieDetail,
+  fetchPopularOnTvDetail,
+  fetchFreeToWatchTvDetail,
+  detailData,
+  setDetailData,
+  fetchMovieCast,
+  fetchFreeToWatchTvCast,
+  fetchPopularOnTvCast,
+  cast,
+  setButtonName,
 }) => {
   const [activeButton, setActiveButton] = useState("today");
   const [activeWhatsPopularBtn, setActiveWhatsPopularBtn] =
@@ -75,6 +93,23 @@ const Home = ({
     }
   };
 
+  const handleCardClick = async (itemId, buttonName) => {
+    // debugger;
+    let data;
+    if (buttonName === "on tv") {
+      data = await fetchPopularOnTvDetail(itemId);
+      fetchPopularOnTvCast(itemId);
+    } else if (buttonName === "tv") {
+      data = await fetchFreeToWatchTvDetail(itemId);
+      fetchFreeToWatchTvCast(itemId);
+    } else {
+      data = await fetchMovieDetail(itemId);
+      fetchMovieCast(itemId);
+    }
+    setDetailData(data);
+    setButtonName(buttonName);
+  };
+
   useEffect(() => {
     setTrendingLoading(true);
     fetchTrendingToday().then(() => setTrendingLoading(false));
@@ -104,6 +139,7 @@ const Home = ({
               activeButton === "thisWeek" ? trendingThisWeek : trendingToday
             }
             loading={trendingLoading}
+            onCardClick={(itemId) => handleCardClick(itemId, activeButton)}
           />
         )}
 
@@ -115,7 +151,13 @@ const Home = ({
         {popularLoading ? (
           <Loader />
         ) : (
-          <TrendingCard data={getPopularData()} loading={popularLoading} />
+          <TrendingCard
+            data={getPopularData()}
+            loading={popularLoading}
+            onCardClick={(itemId) =>
+              handleCardClick(itemId, activeWhatsPopularBtn)
+            }
+          />
         )}
 
         {/* Free To Watch Section  */}
@@ -129,6 +171,9 @@ const Home = ({
           <TrendingCard
             data={getFreeToWatchData()}
             loading={freeToWatchLoading}
+            onCardClick={(itemId) =>
+              handleCardClick(itemId, activeFreeToWatchBtn)
+            }
           />
         )}
       </Box>
@@ -165,8 +210,9 @@ const mapStateToProps = (state) => ({
   popularInTheaters: state.popularInTheaters,
   freeToWatchMovies: state.freeToWatchMovies,
   freeToWatchTv: state.freeToWatchTv,
+  detailData: state.detailData,
+  cast: state.cast,
 });
-
 const mapDispatchToProps = {
   fetchTrendingToday,
   fetchTrendingThisWeek,
@@ -176,6 +222,14 @@ const mapDispatchToProps = {
   fetchPopularInTheaters,
   fetchFreeToWatchMovies,
   fetchFreeToWatchTv,
+  fetchMovieDetail,
+  fetchPopularOnTvDetail,
+  fetchFreeToWatchTvDetail,
+  setDetailData,
+  setButtonName,
+  fetchMovieCast,
+  fetchFreeToWatchTvCast,
+  fetchPopularOnTvCast,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

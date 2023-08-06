@@ -16,6 +16,23 @@ const initialState = {
   tvShowsOnTv: [],
   topRatedTvShows: [],
   popularPeople: [],
+  movieDetail: [],
+  popularOntvDetail: [],
+  freeToWatchTvDetail: [],
+  detailData: {},
+  buttonName: "",
+  cast: [],
+  popularOnTvCast: [],
+  freeToWatchTvCast: [],
+  crew: [],
+  popularOnTvCrew: [],
+  freeToWatchTvCrew: [],
+  castDetail: [],
+  knownFor: [],
+  searchQuery: "",
+  searchResults: [],
+  favourite: [],
+  activeData: "",
   loading: false,
 };
 
@@ -38,6 +55,15 @@ const reducer = (state = initialState, action) => {
     case "FETCH_TV_SHOWS_ON_TV_REQUEST":
     case "FETCH_TOP_RATED_TV_SHOWS_REQUEST":
     case "FETCH_POPULAR_PEOPLE_REQUEST":
+    case "FETCH_MOVIE_DETAIL_REQUEST":
+    case "FETCH_POPULAR_ON_TV_DETAIL_REQUEST":
+    case "FETCH_FREE_TO_WATCH_TV_DETAIL_REQUEST":
+    case "FETCH_MOVIE_CAST_REQUEST":
+    case "FETCH_POPULAR_ON_TV_CAST_REQUEST":
+    case "FETCH_FREE_TO_WATCH_TV_CAST_REQUEST":
+    case "FETCH_CAST_DETAIL_REQUEST":
+    case "FETCH_KNOWN_FOR_CAST_DATA_REQUEST":
+    case "FETCH_SEARCH_RESULTS_REQUEST":
       return {
         ...state,
         loading: true,
@@ -147,6 +173,85 @@ const reducer = (state = initialState, action) => {
         popularPeople: action.payload,
         loading: false,
       };
+    case "FETCH_MOVIE_DETAIL_SUCCESS":
+      return {
+        ...state,
+        movieDetail: action.payload,
+        loading: false,
+      };
+    case "FETCH_POPULAR_ON_TV_DETAIL_SUCCESS":
+      return {
+        ...state,
+        popularOntvDetail: action.payload,
+        loading: false,
+      };
+    case "FETCH_FREE_TO_WATCH_TV_DETAIL_SUCCESS":
+      return {
+        ...state,
+        freeToWatchTvDetail: action.payload,
+        loading: false,
+      };
+    case "SET_DETAIL_DATA":
+      return {
+        ...state,
+        detailData: action.payload,
+        loading: false,
+      };
+    case "SET_BUTTON_NAME":
+      return {
+        ...state,
+        buttonName: action.payload,
+        loading: false,
+      };
+    case "FETCH_MOVIE_CAST_SUCCESS":
+      return {
+        ...state,
+        cast: action.payload.cast,
+        crew: action.payload.crew,
+        loading: false,
+      };
+    case "FETCH_POPULAR_ON_TV_CAST_SUCCESS":
+      return {
+        ...state,
+        popularOnTvCast: action.payload.cast,
+        popularOnTvCrew: action.payload.crew,
+        loading: false,
+      };
+    case "FETCH_FREE_TO_WATCH_TV_CAST_SUCCESS":
+      return {
+        ...state,
+        freeToWatchTvCast: action.payload.cast,
+        freeToWatchTvCrew: action.payload.crew,
+        loading: false,
+      };
+    case "FETCH_CAST_DETAIL_SUCCESS":
+      return {
+        ...state,
+        castDetail: action.payload,
+        loading: false,
+      };
+    case "FETCH_KNOWN_FOR_CAST_DATA_SUCCESS":
+      return {
+        ...state,
+        knownFor: action.payload.cast,
+        loading: false,
+      };
+    case "SET_SEARCH_QUERY":
+      return {
+        ...state,
+        searchQuery: action.payload,
+      };
+    case "FETCH_SEARCH_RESULTS_SUCCESS":
+      return {
+        ...state,
+        searchResults: action.payload.results,
+        loading: false,
+      };
+    case "SET_ACTIVE_DATA":
+      return {
+        ...state,
+        activeData: action.payload,
+      };
     case "FETCH_TRENDING_TODAY_FAILURE":
     case "FETCH_TRENDING_THIS_WEEK_FAILURE":
     case "FETCH_POPULAR_STREAMING_FAILURE":
@@ -164,6 +269,15 @@ const reducer = (state = initialState, action) => {
     case "FETCH_TV_SHOWS_ON_TV_FAILURE":
     case "FETCH_TOP_RATED_TV_SHOWS_FAILURE":
     case "FETCH_POPULAR_PEOPLE_FAILURE":
+    case "FETCH_MOVIE_DETAIL_FAILURE":
+    case "FETCH_POPULAR_ON_TV_DETAIL_FAILURE":
+    case "FETCH_FREE_TO_WATCH_TV_DETAIL_FAILURE":
+    case "FETCH_MOVIE_CAST_FAILURE":
+    case "FETCH_POPULAR_ON_TV_CAST_FAILURE":
+    case "FETCH_FREE_TO_WATCH_TV_CAST_FAILURE":
+    case "FETCH_CAST_DETAIL_FAILURE":
+    case "FETCH_KNOWN_FOR_CAST_DATA_FAILURE":
+    case "FETCH_SEARCH_RESULTS_FAILURE":
       return {
         ...state,
         error: action.payload,

@@ -3,15 +3,15 @@ import {
   Box,
   Typography,
   FormControl,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
-  Checkbox,
   Autocomplete,
   TextField,
   Slider,
   Tooltip,
   Button,
+  FormControlLabel,
+  Checkbox,
+  RadioGroup,
+  Radio,
 } from "@mui/material";
 
 const NavLinkDetailLeft = () => {
@@ -23,16 +23,12 @@ const NavLinkDetailLeft = () => {
   const [isFormDirty, setIsFormDirty] = useState(false);
 
   useEffect(() => {
-    if (
+    setIsFormDirty(
       selectedOption !== null ||
-      showAdditionalCheckboxes ||
-      showReleaseCheckboxes ||
-      sliderValue !== 50
-    ) {
-      setIsFormDirty(true);
-    } else {
-      setIsFormDirty(false);
-    }
+        showAdditionalCheckboxes ||
+        showReleaseCheckboxes ||
+        sliderValue !== 50
+    );
   }, [
     selectedOption,
     showAdditionalCheckboxes,
@@ -44,18 +40,19 @@ const NavLinkDetailLeft = () => {
     setSelectedOption(value);
   };
 
-  const handleMainCheckboxChange = (event) => {
-    setShowAdditionalCheckboxes(!event.target.checked);
+  const handleMainCheckboxChange = () => {
+    setShowAdditionalCheckboxes((prev) => !prev);
   };
 
-  const handleReleaseCheckboxChange = (event) => {
-    setShowReleaseCheckboxes(!event.target.checked);
+  const handleReleaseCheckboxChange = () => {
+    setShowReleaseCheckboxes((prev) => !prev);
   };
 
   const handleSliderChange = (event, newValue) => {
     setSliderValue(newValue);
   };
 
+  
   return (
     <Box
       component="div"

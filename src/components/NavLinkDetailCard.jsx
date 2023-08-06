@@ -2,17 +2,24 @@ import React from "react";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import { CardContent, Tooltip, Typography } from "@mui/material";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import Loader from "./Loader";
+import { Link } from "react-router-dom";
+import NotFound from "./NotFound";
 
-const NavLinkDetailCard = ({ data, loading }) => {
+const NavLinkDetailCard = ({ data, loading, onCardClick }) => {
   if (loading) {
     return <Loader />;
   }
 
   if (!data || data.length === 0) {
-    return <div>No data available</div>;
+    return <NotFound />;
   }
+
+  const handleCardClick = (itemId) => {
+    onCardClick(itemId);
+  };
+
+  const imageBaseUrl = "https://image.tmdb.org/t/p/w500/";
 
   return (
     <div
@@ -20,7 +27,6 @@ const NavLinkDetailCard = ({ data, loading }) => {
         display: "flex",
         flexWrap: "wrap",
         gap: "10px",
-        // overflowX: "auto",
       }}
     >
       {data.results.map((item) => (
@@ -28,7 +34,7 @@ const NavLinkDetailCard = ({ data, loading }) => {
           key={item.id}
           sx={{
             flex: "0 0 auto",
-            width: "30%",
+            width: "20%",
             height: "470px",
             marginRight: "5px",
             marginLeft: "5px",
@@ -58,19 +64,29 @@ const NavLinkDetailCard = ({ data, loading }) => {
               item.original_name
             }
           >
-            <CardMedia
-              component="img"
-              image={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
-              alt={
+            <Link
+              to={`/movie/${item.id}-${
                 item.title ||
                 item.original_title ||
                 item.name ||
                 item.original_name
-              }
-              sx={{
-                height: "70%",
-              }}
-            />
+              }`}
+              onClick={() => handleCardClick(item.id)}
+            >
+              <CardMedia
+                component="img"
+                image={`${imageBaseUrl}${item.poster_path}`}
+                alt={
+                  item.title ||
+                  item.original_title ||
+                  item.name ||
+                  item.original_name
+                }
+                sx={{
+                  height: "70%",
+                }}
+              />
+            </Link>
           </Tooltip>
           <CardContent>
             <Tooltip
@@ -103,17 +119,6 @@ const NavLinkDetailCard = ({ data, loading }) => {
               {item.release_date || item.first_air_date}
             </Typography>
           </CardContent>
-          <MoreHorizIcon
-            sx={{
-              position: "absolute",
-              top: "10px",
-              right: "10px",
-              backgroundColor: "lightgray",
-              borderRadius: "50%",
-              opacity: "0.6",
-              zIndex: 1,
-            }}
-          />
         </Card>
       ))}
     </div>

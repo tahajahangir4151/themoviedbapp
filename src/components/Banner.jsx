@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import BannerImage from "../banner.jpg";
+import { fetchSearchResults, setSearchQuery } from "../middleware/actions";
+import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-const Banner = () => {
+const Banner = ({ setSearchQuery, fetchSearchResults }) => {
+  const [inputValue, setInputValue] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearchClick = () => {
+    if (inputValue.trim() !== "") {
+      setSearchQuery(inputValue);
+      fetchSearchResults(inputValue);
+      setInputValue("");
+      navigate(`/search/query/${encodeURIComponent(inputValue)}`);
+    }
+  };
+
   return (
     <>
       <Box
@@ -34,8 +49,10 @@ const Banner = () => {
         </Typography>
 
         <TextField
-          placeholder="Search for a movie, TV show, person..."
+          placeholder="Search for a movies, TV show... "
           variant="outlined"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
           fullWidth
           InputProps={{
             sx: {
@@ -60,6 +77,8 @@ const Banner = () => {
                     color: "#000",
                   },
                 }}
+                disabled={inputValue.trim() === ""}
+                onClick={handleSearchClick}
               >
                 Search
               </Button>
@@ -71,4 +90,9 @@ const Banner = () => {
   );
 };
 
-export default Banner;
+const mapDispatchToProps = {
+  setSearchQuery,
+  fetchSearchResults,
+};
+
+export default connect(null, mapDispatchToProps)(Banner);

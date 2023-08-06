@@ -1,21 +1,40 @@
-import React, { useContext } from "react";
-import { Contexts } from "../contexts/contexts";
+import React from "react";
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
-import { useSelector } from "react-redux";
+import { connect } from "react-redux";
 import Loader from "./Loader";
+import { fetchCastDetail, fetchKnownForCastData } from "../middleware/actions";
+import { Link } from "react-router-dom";
+import NotFound from "./NotFound";
 
-const NavLinkDetailPeople = () => {
-  const { popularPeople } = useContext(Contexts);
-  const loading = useSelector((state) => state.loading);
-  let data = popularPeople;
-
+const NavLinkDetailPeople = ({
+  loading,
+  fetchCastDetail,
+  fetchKnownForCastData,
+  activeData,
+  buttonName,
+  popularPeople,
+}) => {
   if (loading) {
     return <Loader />;
   }
-  if (!data || data.length === 0) {
-    return <div>No Data Available</div>;
+
+  let data;
+  if (activeData === "people" && buttonName === "people") {
+    data = popularPeople;
   }
 
+  if (!data || data.length === 0) {
+    return <NotFound />;
+  }
+
+  const filteredData = data.results.filter(
+    (item) => item.profile_path !== null
+  );
+
+  const handleCardClick = (id) => {
+    fetchCastDetail(id);
+    fetchKnownForCastData(id);
+  };
   return (
     <div style={{ marginTop: "20px" }}>
       <Typography
@@ -35,7 +54,7 @@ const NavLinkDetailPeople = () => {
           flexWrap: "wrap",
         }}
       >
-        {data.results.map((item) => (
+        {filteredData.map((item) => (
           <Card
             key={item.id}
             sx={{
@@ -49,11 +68,16 @@ const NavLinkDetailPeople = () => {
               marginLeft: "30px",
             }}
           >
-            <CardMedia
-              component="img"
-              image={`https://image.tmdb.org/t/p/w500${item.profile_path}`}
-              alt={item.name || item.original_name}
-            />
+            <Link
+              to={`/person/${item.id}/${item.name}`}
+              onClick={() => handleCardClick(item.id)}
+            >
+              <CardMedia
+                component="img"
+                image={`https://image.tmdb.org/t/p/w500${item.profile_path}`}
+                alt={item.name || item.original_name}
+              />
+            </Link>
             <CardContent>
               <Typography
                 variant="subtitle1"
@@ -66,13 +90,15 @@ const NavLinkDetailPeople = () => {
               >
                 {item.name || item.original_name}
               </Typography>
-              <Typography
-                variant="body2"
-                component={"div"}
-                sx={{ fontSize: "15px" }}
-              >
-                {item.known_for[0].overview}
-              </Typography>
+              {item.known_for && item.known_for.length > 0 && (
+                <Typography
+                  variant="body2"
+                  component={"div"}
+                  sx={{ fontSize: "15px" }}
+                >
+                  {item.known_for[0].overview}
+                </Typography>
+              )}
             </CardContent>
           </Card>
         ))}
@@ -80,5 +106,18 @@ const NavLinkDetailPeople = () => {
     </div>
   );
 };
+const mapStateToProps = (state) => ({
+  loading: state.loading,
+  activeData: state.activeData,
+  buttonName: state.buttonName,
+  popularPeople: state.popularPeople,
+});
 
-export default NavLinkDetailPeople;
+const mapDispatchToProps = {
+  fetchCastDetail,
+  fetchKnownForCastData,
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NavLinkDetailPeople);
