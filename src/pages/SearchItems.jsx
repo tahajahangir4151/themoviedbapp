@@ -6,6 +6,8 @@ import {
   CardMedia,
   CircularProgress,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { connect } from "react-redux";
 import Loader from "../components/Loader";
@@ -24,6 +26,10 @@ const SearchItems = ({
   fetchMovieCast,
   setDetailData,
 }) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isTablet = useMediaQuery(theme.breakpoints.down("md"));
+
   if (loading) {
     return <Loader />;
   }
@@ -53,7 +59,7 @@ const SearchItems = ({
             variant="h5"
             sx={{
               fontWeight: "bold",
-              fontSize: "30px",
+              fontSize: isMobile ? "24px" : isTablet ? "28px" : "30px",
               marginBottom: "20px",
               marginLeft: "30px",
             }}
@@ -63,6 +69,7 @@ const SearchItems = ({
           <div
             style={{
               display: "flex",
+              flexDirection: isMobile ? "column" : "row",
               flexWrap: "wrap",
             }}
           >
@@ -75,13 +82,13 @@ const SearchItems = ({
                   key={item.id}
                   sx={{
                     flex: "0 0 20%",
-                    width: "100%",
+                    // width: "100%",
                     height: "auto",
                     position: "relative",
                     cursor: "pointer",
                     marginBottom: "20px",
                     marginRight: "10px",
-                    marginLeft: "30px",
+                    marginLeft: isMobile ? "10px" : "30px",
                   }}
                 >
                   <Link

@@ -1,5 +1,12 @@
 import React from "react";
-import { Card, CardContent, CardMedia, Typography } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { connect } from "react-redux";
 import Loader from "./Loader";
 import { fetchCastDetail, fetchKnownForCastData } from "../middleware/actions";
@@ -14,6 +21,10 @@ const NavLinkDetailPeople = ({
   buttonName,
   popularPeople,
 }) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isTablet = useMediaQuery(theme.breakpoints.down("md"));
+
   if (loading) {
     return <Loader />;
   }
@@ -41,7 +52,7 @@ const NavLinkDetailPeople = ({
         variant="h5"
         sx={{
           fontWeight: "bold",
-          fontSize: "30px",
+          fontSize: isMobile ? "24px" : isTablet ? "28px" : "30px",
           marginBottom: "20px",
           marginLeft: "30px",
         }}
@@ -51,6 +62,7 @@ const NavLinkDetailPeople = ({
       <div
         style={{
           display: "flex",
+          flexDirection: isMobile ? "column" : "row",
           flexWrap: "wrap",
         }}
       >
@@ -65,7 +77,7 @@ const NavLinkDetailPeople = ({
               cursor: "pointer",
               marginBottom: "20px",
               marginRight: "10px",
-              marginLeft: "30px",
+              marginLeft: isMobile ? "10px" : "30px",
             }}
           >
             <Link

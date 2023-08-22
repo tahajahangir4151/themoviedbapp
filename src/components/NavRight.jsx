@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
-import LanguageIcon from "@mui/icons-material/Language";
-import NotificationsIcon from "@mui/icons-material/Notifications";
+// import LanguageIcon from "@mui/icons-material/Language";
+// import NotificationsIcon from "@mui/icons-material/Notifications";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import {
@@ -201,12 +201,12 @@ const NavRight = ({ setSearchQuery, fetchSearchResults }) => {
           </Dialog>
         </Grid>
       )}
-      <Grid item>
+      {/* <Grid item>
         <LanguageIcon className="language-icon" />
       </Grid>
       <Grid item>
         <NotificationsIcon className="notification-icon" />
-      </Grid>
+      </Grid> */}
       <Grid item>
         <SearchIcon
           className="search-icon"
