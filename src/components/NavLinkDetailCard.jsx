@@ -126,3 +126,4 @@ const NavLinkDetailCard = ({ data, loading, onCardClick }) => {
 };
 
 export default NavLinkDetailCard;
+ 

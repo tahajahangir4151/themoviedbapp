@@ -108,3 +108,4 @@ const mapDispatchToProps = {
   fetchKnownForCastData,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(TopCasts);
+ 

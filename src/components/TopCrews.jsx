@@ -98,3 +98,4 @@ const mapDispatchToProps = {
   fetchCastDetail,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(TopCrews);
+ 

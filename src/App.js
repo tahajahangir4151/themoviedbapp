@@ -21,7 +21,7 @@ const App = () => {
         <Route path="/people" element={<NavLinkDetailPeople />} />
         <Route path="/movie/:id" element={<ProductDetails />} />
         <Route path="/person/:id/:name" element={<CastDetail />} />
-        <Route path="/search/query/:inputValue" element={<SearchItems />} />
+        <Route path="/search/query?/:inputValue" element={<SearchItems />} />
       </Routes>
       <Footer />
     </Router>
