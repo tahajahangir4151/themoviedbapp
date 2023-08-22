@@ -39,6 +39,8 @@ header {
   overflow: visible;
   position: relative;
   z-index: 1;
+  width: 100%;
+  flex: 1;
 }
 .logo > .logo_img {
   height: 120px;
@@ -72,7 +74,7 @@ nav {
   top: 100%;
   width: 200px;
   transition: opacity 0.2s ease-in-out;
-  z-index: 2;
+  z-index: 3;
 }
 .dropdown:hover .dropdown-menu {
   display: block;
