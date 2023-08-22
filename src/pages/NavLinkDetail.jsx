@@ -13,3 +13,4 @@ const NavLinkDetail = () => {
 };
 
 export default NavLinkDetail;
+ 

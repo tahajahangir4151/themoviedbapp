@@ -63,7 +63,7 @@ const FreeToWatchBtn = ({
             fontWeight: "600",
             borderRadius: "30px",
             "&:last-of-type": {
-              // borderTopRightRadius: isMobile ? "30px" : "0",
+               // borderTopRightRadius: isMobile ? "30px" : "0",
               // borderBottomRightRadius: isMobile ? "30px" : "0",
             },
           }}

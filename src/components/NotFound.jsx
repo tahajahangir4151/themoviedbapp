@@ -38,3 +38,4 @@ const NotFound = ({ text }) => {
 };
 
 export default NotFound;
+ 

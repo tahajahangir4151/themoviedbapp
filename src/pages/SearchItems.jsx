@@ -170,3 +170,4 @@ const mapDispatchToProps = {
   setDetailData,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SearchItems);
+ 

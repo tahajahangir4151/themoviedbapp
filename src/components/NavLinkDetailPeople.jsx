@@ -133,3 +133,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(NavLinkDetailPeople);
+ 

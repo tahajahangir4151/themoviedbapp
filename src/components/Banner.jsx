@@ -116,3 +116,4 @@ const mapDispatchToProps = {
 };
 
 export default connect(null, mapDispatchToProps)(Banner);
+ 

@@ -242,3 +242,4 @@ const mapDispatchToProps = {
   fetchSearchResults,
 };
 export default connect(null, mapDispatchToProps)(NavRight);
+ 

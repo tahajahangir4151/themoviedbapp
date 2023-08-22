@@ -73,3 +73,4 @@ const TrendingBtn = ({ activeButton, handleButtonClick }) => {
 };
 
 export default TrendingBtn;
+ 
