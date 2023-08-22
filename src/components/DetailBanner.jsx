@@ -9,12 +9,16 @@ import {
   Dialog,
   DialogContent,
   IconButton,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import CloseIcon from "@mui/icons-material/Close";
 import { connect } from "react-redux";
 
 const DetailBanner = ({ detailData, loading }) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [open, setOpen] = useState(false);
   if (loading) {
     return <Loader />;
@@ -49,9 +53,10 @@ const DetailBanner = ({ detailData, loading }) => {
   return (
     <Box
       sx={{
-        height: "500px",
+        height: isMobile ? "auto" : "500px",
         width: "100%",
         display: "flex",
+        flexDirection: isMobile ? "column" : "row",
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${bannerImage})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -90,17 +95,23 @@ const DetailBanner = ({ detailData, loading }) => {
       </Box>
       <Box
         sx={{
-          width: "70%",
+          width: "100%",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
+          alignItems: "center",
           color: "#FFFFFF",
           padding: "20px",
         }}
       >
         <Typography
           variant="h3"
-          sx={{ fontSize: "32px", fontWeight: "bolder" }}
+          sx={{
+            fontSize: isMobile ? "30px" : "32px",
+            fontWeight: "bolder",
+            textAlign: "center",
+            marginBottom: "10px",
+          }}
         >
           {detailData.title ||
             detailData.original_title ||
@@ -116,7 +127,11 @@ const DetailBanner = ({ detailData, loading }) => {
         </Typography>
         <Typography
           variant="body2"
-          sx={{ fontSize: "25px", color: "#B5DFF3", marginTop: "10px" }}
+          sx={{
+            fontSize: isMobile ? "15px" : "25px",
+            color: "#B5DFF3",
+            marginTop: "10px",
+          }}
         >
           Genres: {genres}
         </Typography>
@@ -233,7 +248,12 @@ const DetailBanner = ({ detailData, loading }) => {
         </Typography>
         <Typography
           variant="body2"
-          sx={{ marginTop: "10px", color: "#E5EAF3" }}
+          sx={{
+            marginTop: "10px",
+            color: "#E5EAF3",
+            wordWrap: "break-word",
+            maxWidth: isMobile ? "100%" : "70%",
+          }}
         >
           {detailData.overview}
         </Typography>
