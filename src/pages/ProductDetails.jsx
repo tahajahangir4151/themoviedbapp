@@ -5,6 +5,7 @@ import DetailBanner from "../components/DetailBanner";
 import TopCasts from "../components/TopCasts";
 import Loader from "../components/Loader";
 import TopCrews from "../components/TopCrews";
+import NotFound from "../components/NotFound";
 
 const ProductDetails = ({
   detailData,
@@ -39,7 +40,11 @@ const ProductDetails = ({
     return <Loader />;
   }
   if (!detailData || detailData.length === 0) {
-    return <Box>No Data Available</Box>;
+    return (
+      <Box>
+        <NotFound />
+      </Box>
+    );
   }
   return (
     <>
@@ -62,3 +67,4 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, null)(ProductDetails);
+ 

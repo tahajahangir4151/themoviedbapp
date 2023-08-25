@@ -1,11 +1,13 @@
 import React from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { connect } from "react-redux";
 import Loader from "./Loader";
 
 const imageBaseUrl = "https://image.tmdb.org/t/p/w200/";
 
 const OtherProductDetails = ({ detailData, loading }) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   if (loading) {
     return <Loader />;
   }
@@ -19,7 +21,7 @@ const OtherProductDetails = ({ detailData, loading }) => {
             variant="body1"
             sx={{
               fontWeight: "bold",
-              fontSize: "20px",
+              fontSize: isMobile ? "15px" : "20px",
               marginTop: "15px",
               marginLeft: "15px",
             }}
@@ -29,7 +31,7 @@ const OtherProductDetails = ({ detailData, loading }) => {
           <Typography
             variant="body2"
             sx={{
-              fontSize: "20px",
+              fontSize: isMobile ? "15px" : "20px",
               marginTop: "10px",
               marginLeft: "15px",
             }}
@@ -44,7 +46,7 @@ const OtherProductDetails = ({ detailData, loading }) => {
             variant="body2"
             sx={{
               fontWeight: "bold",
-              fontSize: "20px",
+              fontSize: isMobile ? "15px" : "20px",
               marginTop: "15px",
               marginLeft: "15px",
             }}
@@ -54,7 +56,7 @@ const OtherProductDetails = ({ detailData, loading }) => {
           <Typography
             variant="body2"
             sx={{
-              fontSize: "20px",
+              fontSize: isMobile ? "15px" : "20px",
               marginTop: "10px",
               marginLeft: "15px",
             }}
@@ -69,7 +71,7 @@ const OtherProductDetails = ({ detailData, loading }) => {
             variant="body2"
             sx={{
               fontWeight: "bold",
-              fontSize: "20px",
+              fontSize: isMobile ? "15px" : "20px",
               marginTop: "15px",
               marginLeft: "15px",
             }}
@@ -79,7 +81,7 @@ const OtherProductDetails = ({ detailData, loading }) => {
           <Typography
             variant="body2"
             sx={{
-              fontSize: "20px",
+              fontSize: isMobile ? "15px" : "20px",
               marginTop: "10px",
               marginLeft: "15px",
             }}
@@ -94,7 +96,7 @@ const OtherProductDetails = ({ detailData, loading }) => {
             variant="body2"
             sx={{
               fontWeight: "bold",
-              fontSize: "20px",
+              fontSize: isMobile ? "15px" : "20px",
               marginTop: "15px",
               marginLeft: "15px",
             }}
@@ -104,7 +106,7 @@ const OtherProductDetails = ({ detailData, loading }) => {
           <Typography
             variant="body2"
             sx={{
-              fontSize: "20px",
+              fontSize: isMobile ? "13px" : "20px",
               marginTop: "15px",
               marginLeft: "15px",
             }}
@@ -119,7 +121,7 @@ const OtherProductDetails = ({ detailData, loading }) => {
             variant="body2"
             sx={{
               fontWeight: "bold",
-              fontSize: "20px",
+              fontSize: isMobile ? "13px" : "20px",
               marginTop: "15px",
               marginLeft: "15px",
             }}
@@ -148,7 +150,7 @@ const OtherProductDetails = ({ detailData, loading }) => {
             variant="body1"
             sx={{
               fontWeight: "bold",
-              fontSize: "20px",
+              fontSize: isMobile ? "13px" : "20px",
               marginTop: "15px",
               marginLeft: "15px",
             }}
@@ -158,7 +160,7 @@ const OtherProductDetails = ({ detailData, loading }) => {
           <Typography
             variant="body2"
             sx={{
-              fontSize: "20px",
+              fontSize: isMobile ? "13px" : "20px",
               marginTop: "15px",
               marginLeft: "10px",
             }}
@@ -177,3 +179,4 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, null)(OtherProductDetails);
+ 

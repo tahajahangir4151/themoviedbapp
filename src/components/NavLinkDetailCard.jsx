@@ -1,12 +1,21 @@
 import React from "react";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
-import { CardContent, Tooltip, Typography } from "@mui/material";
+import {
+  CardContent,
+  Tooltip,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import Loader from "./Loader";
 import { Link } from "react-router-dom";
 import NotFound from "./NotFound";
 
 const NavLinkDetailCard = ({ data, loading, onCardClick }) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isTablet = useMediaQuery(theme.breakpoints.down("md"));
   if (loading) {
     return <Loader />;
   }
@@ -27,6 +36,8 @@ const NavLinkDetailCard = ({ data, loading, onCardClick }) => {
         display: "flex",
         flexWrap: "wrap",
         gap: "10px",
+        flexDirection: isMobile ? "column" : "row",
+        alignItems: isMobile ? "center" : "flex-start",
       }}
     >
       {data.results.map((item) => (
@@ -34,26 +45,12 @@ const NavLinkDetailCard = ({ data, loading, onCardClick }) => {
           key={item.id}
           sx={{
             flex: "0 0 auto",
-            width: "20%",
-            height: "470px",
-            marginRight: "5px",
-            marginLeft: "5px",
-            marginTop: "5px",
+            width: isMobile ? "100%" : isTablet ? "45%" : "20%",
+            height: isMobile ? "auto" : "470px",
+            margin: "5px",
             cursor: "pointer",
             position: "relative",
             zIndex: 0,
-            "@media (max-width: 1200px)": {
-              width: "40%",
-              height: "400px",
-            },
-            "@media (max-width: 768px)": {
-              width: "45%",
-              height: "350px",
-            },
-            "@media (max-width: 576px)": {
-              width: "50%",
-              height: "300px",
-            },
           }}
         >
           <Tooltip
@@ -75,7 +72,10 @@ const NavLinkDetailCard = ({ data, loading, onCardClick }) => {
             >
               <CardMedia
                 component="img"
-                image={`${imageBaseUrl}${item.poster_path}`}
+                image={
+                  `${imageBaseUrl}${item.poster_path}` ||
+                  `${imageBaseUrl}${item.backdrop_path}`
+                }
                 alt={
                   item.title ||
                   item.original_title ||
@@ -83,7 +83,7 @@ const NavLinkDetailCard = ({ data, loading, onCardClick }) => {
                   item.original_name
                 }
                 sx={{
-                  height: "70%",
+                  height: "50%",
                 }}
               />
             </Link>
@@ -126,3 +126,4 @@ const NavLinkDetailCard = ({ data, loading, onCardClick }) => {
 };
 
 export default NavLinkDetailCard;
+ 

@@ -1,9 +1,17 @@
 import React, { useState } from "react";
-import { Box, Button, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import Loader from "./Loader";
 import { connect } from "react-redux";
 
 const CastBanner = ({ castDetail, loading }) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const imageBaseUrl = "https://image.tmdb.org/t/p/w500/";
   const [showFullBio, setShowFullBio] = useState(false);
 
@@ -19,10 +27,10 @@ const CastBanner = ({ castDetail, loading }) => {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", flexDirection: isMobile ? "column" : "row" }}>
       <Box
         sx={{
-          width: "30%",
+          width: isMobile ? "100%" : "30%",
           height: "500px",
           marginTop: "20px",
           marginLeft: "20px",
@@ -36,7 +44,7 @@ const CastBanner = ({ castDetail, loading }) => {
             alt={castDetail.name}
             style={{
               height: "100%",
-              width: "100%",
+              width:"100%",
               objectFit: "cover",
               borderRadius: "3px",
             }}

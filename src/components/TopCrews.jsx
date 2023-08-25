@@ -55,8 +55,8 @@ const TopCrews = ({ dataToRenderCrew, loading, fetchCastDetail }) => {
                   height: "250px",
                 },
                 "@media (max-width: 576px)": {
-                  width: "30%",
-                  height: "200px",
+                  width: "45%",
+                  height: "360px",
                 },
               }}
             >
@@ -98,3 +98,4 @@ const mapDispatchToProps = {
   fetchCastDetail,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(TopCrews);
+ 

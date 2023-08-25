@@ -54,16 +54,16 @@ const TopCasts = ({
                 marginTop: "20px",
                 position: "relative",
                 "@media (max-width: 1200px)": {
-                  width: "20%",
+                  width: "25%",
                   height: "300px",
                 },
                 "@media (max-width: 768px)": {
-                  width: "25%",
+                  width: "30%",
                   height: "250px",
                 },
                 "@media (max-width: 576px)": {
-                  width: "30%",
-                  height: "200px",
+                  width: "80%",
+                  height: "440px",
                 },
               }}
             >
@@ -108,3 +108,4 @@ const mapDispatchToProps = {
   fetchKnownForCastData,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(TopCasts);
+ 

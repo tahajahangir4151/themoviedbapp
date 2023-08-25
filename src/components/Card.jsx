@@ -153,3 +153,4 @@ const TrendingCard = ({ data, loading, onCardClick }) => {
 };
 
 export default TrendingCard;
+ 
