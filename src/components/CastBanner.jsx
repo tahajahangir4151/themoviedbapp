@@ -44,7 +44,7 @@ const CastBanner = ({ castDetail, loading }) => {
             alt={castDetail.name}
             style={{
               height: "100%",
-              width: "100%",
+              width:"100%",
               objectFit: "cover",
               borderRadius: "3px",
             }}
