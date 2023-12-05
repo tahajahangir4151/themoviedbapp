@@ -114,8 +114,8 @@ nav {
   color: white;
   cursor: pointer;
   font-weight: bold;
-  font-size: 20px;
   margin-left: 10px;
+  font-size: 20px;
 }
 .search-icon {
   color: blue;
@@ -127,4 +127,69 @@ nav {
   text-align: center;
   padding: 7px;
 }
- 
+@media screen and (min-width: 600px) {
+  .media {
+    padding: 0 40px;
+  }
+
+  nav {
+    flex-direction: row;
+  }
+  .logo > .logo_img {
+    height: 80px;
+  }
+
+  .dropdown-menu {
+    width: 150px;
+    margin-top: 0;
+  }
+
+  .dropdown-btn {
+    padding: 10px;
+    font-size: 15px;
+    font-weight: 10px;
+  }
+}
+@media screen and (max-width: 599px) {
+  .media {
+    padding: 0 20px;
+  }
+
+  nav {
+    flex-direction: row;
+  }
+  .logo > .logo_img {
+    height: 45px;
+  }
+
+  .dropdown-menu {
+    width: 120px;
+    margin-top: 0;
+  }
+
+  .dropdown-btn {
+    padding: 7px;
+    font-size: 12px;
+  }
+}
+
+.right-navbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+.right-navbar > div {
+  margin-left: 10px;
+}
+
+.add-icon,
+.language-icon,
+.notification-icon,
+.accountCircle-icon,
+.search-icon {
+  font-size: 16px;
+  margin-left: 5px;
+}

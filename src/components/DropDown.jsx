@@ -13,6 +13,8 @@ import {
   fetchUpcomigMovies,
   setActiveData,
   setButtonName,
+  fetchMoviesGenres,
+  fetchTvGenres,
 } from "../middleware/actions";
 const DropDown = ({
   fetchPopularMovies,
@@ -26,10 +28,13 @@ const DropDown = ({
   fetchPopularPeople,
   setActiveData,
   setButtonName,
+  fetchMoviesGenres,
+  fetchTvGenres,
 }) => {
   const [isOpenMovies, setIsOpenMovies] = useState(false);
   const [isOpenTvShows, setIsOpenTvShows] = useState(false);
   const [isOpenPeople, setIsOpenPeople] = useState(false);
+  const [isOpenGenres, setIsOpenGenres] = useState(false);
 
   const navigate = useNavigate();
 
@@ -84,6 +89,18 @@ const DropDown = ({
     navigate(`/people`);
   };
 
+  const handleButtonClickGenres = (buttonName) => {
+    if (buttonName === "movie_list") {
+      fetchMoviesGenres();
+      setButtonName("movie_list");
+      setActiveData("movie_list");
+    } else if (buttonName === "tv_list") {
+      fetchTvGenres();
+      setButtonName("tv_list");
+      setActiveData("tv_list");
+    }
+    navigate(`/genres/${buttonName}`);
+  };
   return (
     <nav>
       <div
@@ -173,6 +190,30 @@ const DropDown = ({
           </ul>
         )}
       </div>
+      <div
+        className="dropdown"
+        onMouseEnter={() => setIsOpenGenres(true)}
+        onMouseLeave={() => setIsOpenGenres(false)}
+      >
+        <button className="dropdown-btn">Genres</button>
+        {isOpenGenres && (
+          <ul className="dropdown-menu">
+            <li
+              className="dropdown-link"
+              onClick={() => handleButtonClickGenres("movie_list")}
+            >
+              Movie List
+            </li>
+            <li
+              className="dropdown-link"
+              onClick={() => handleButtonClickGenres("tv_list")}
+            >
+              Tv List
+            </li>
+          </ul>
+        )}
+      </div>
+
       {/* <div
         className="dropdown"
         onMouseEnter={() => setIsOpenMore(true)}
@@ -224,7 +265,8 @@ const mapDispatchToProps = {
   fetchPopularPeople,
   setActiveData,
   setButtonName,
+  fetchMoviesGenres,
+  fetchTvGenres,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DropDown);
- 

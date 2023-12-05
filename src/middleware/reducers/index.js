@@ -32,7 +32,16 @@ const initialState = {
   searchQuery: "",
   searchResults: [],
   favourite: [],
+  // movieKeywords: [],
+  // tvKeywords: [],
+  keywords: [],
   activeData: "",
+  moviesGenres: [],
+  tvGenres: [],
+  movieGenreData: [],
+  tvGenreData: [],
+  movieKeywordData: [],
+  tvKeywordData: [],
   loading: false,
 };
 
@@ -64,6 +73,14 @@ const reducer = (state = initialState, action) => {
     case "FETCH_CAST_DETAIL_REQUEST":
     case "FETCH_KNOWN_FOR_CAST_DATA_REQUEST":
     case "FETCH_SEARCH_RESULTS_REQUEST":
+    case "FETCH_MOVIE_KEYWORDS_REQUEST":
+    case "FETCH_TV_KEYWORDS_REQUEST":
+    case "FETCH_MOVIES_GENRES_REQUEST":
+    case "FETCH_TV_GENRES_REQUEST":
+    case "FETCH_MOVIE_GENRE_DATA_REQUEST":
+    case "FETCH_TV_GENRE_DATA_REQUEST":
+    case "FETCH_MOVIE_KEYWORD_DATA_REQUEST":
+    case "FETCH_TV_KEYWORD_DATA_REQUEST":
       return {
         ...state,
         loading: true,
@@ -252,6 +269,54 @@ const reducer = (state = initialState, action) => {
         ...state,
         activeData: action.payload,
       };
+    case "FETCH_MOVIE_KEYWORDS_SUCCESS":
+      return {
+        ...state,
+        keywords: action.payload,
+        loading: false,
+      };
+    case "FETCH_TV_KEYWORDS_SUCCESS":
+      return {
+        ...state,
+        keywords: action.payload,
+        loading: false,
+      };
+    case "FETCH_MOVIES_GENRES_SUCCESS":
+      return {
+        ...state,
+        moviesGenres: action.payload,
+        loading: false,
+      };
+    case "FETCH_TV_GENRES_SUCCESS":
+      return {
+        ...state,
+        tvGenres: action.payload,
+        loading: false,
+      };
+    case "FETCH_MOVIE_GENRE_DATA_SUCCESS":
+      return {
+        ...state,
+        movieGenreData: action.payload,
+        loading: false,
+      };
+    case "FETCH_TV_GENRE_DATA_SUCCESS":
+      return {
+        ...state,
+        tvGenreData: action.payload,
+        loading: false,
+      };
+    case "FETCH_MOVIE_KEYWORD_DATA_SUCCESS":
+      return {
+        ...state,
+        movieKeywordData: action.payload,
+        loading: false,
+      };
+    case "FETCH_TV_KEYWORD_DATA_SUCCESS":
+      return {
+        ...state,
+        tvKeywordData: action.payload,
+        loading: false,
+      };
     case "FETCH_TRENDING_TODAY_FAILURE":
     case "FETCH_TRENDING_THIS_WEEK_FAILURE":
     case "FETCH_POPULAR_STREAMING_FAILURE":
@@ -278,6 +343,14 @@ const reducer = (state = initialState, action) => {
     case "FETCH_CAST_DETAIL_FAILURE":
     case "FETCH_KNOWN_FOR_CAST_DATA_FAILURE":
     case "FETCH_SEARCH_RESULTS_FAILURE":
+    case "FETCH_MOVIE_KEYWORDS_FAILURE":
+    case "FETCH_TV_KEYWORDS_FAILURE":
+    case "FETCH_MOVIES_GENRES_FAILURE":
+    case "FETCH_TV_GENRES_FAILURE":
+    case "FETCH_MOVIE_GENRE_DATA_FAILURE":
+    case "FETCH_TV_GENRE_DATA_FAILURE":
+    case "FETCH_MOVIE_KEYWORD_DATA_FAILURE":
+    case "FETCH_TV_KEYWORD_DATA_FAILURE":
       return {
         ...state,
         error: action.payload,

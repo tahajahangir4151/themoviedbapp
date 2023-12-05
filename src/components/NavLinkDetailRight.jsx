@@ -10,6 +10,8 @@ import {
   fetchPopularOnTvDetail,
   setDetailData,
   fetchFreeToWatchTvCast,
+  // fetchMovieKeywords,
+  // fetchTvKeywords,
 } from "../middleware/actions";
 
 const NavLinkDetailRight = ({
@@ -30,6 +32,8 @@ const NavLinkDetailRight = ({
   tvShowsOnTv,
   topRatedTvShows,
   fetchFreeToWatchTvCast,
+  // fetchMovieKeywords,
+  // fetchTvKeywords,
 }) => {
   let dataToRender;
   if (activeData === "movies" && buttonName === "popular") {
@@ -55,10 +59,12 @@ const NavLinkDetailRight = ({
     if (activeData === "movies") {
       data = await fetchMovieDetail(itemId);
       fetchMovieCast(itemId);
+      // fetchMovieKeywords(itemId);
     } else if (activeData === "tvShows") {
       data = await fetchPopularOnTvDetail(itemId);
       fetchPopularOnTvCast(itemId);
       fetchFreeToWatchTvCast(itemId);
+      // fetchTvKeywords(itemId);
     }
     setDetailData(data);
   };
@@ -105,7 +111,8 @@ const mapDispatchToProps = {
   fetchPopularOnTvCast,
   fetchPopularOnTvDetail,
   fetchFreeToWatchTvCast,
+  // fetchMovieKeywords,
+  // fetchTvKeywords,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavLinkDetailRight);
- 

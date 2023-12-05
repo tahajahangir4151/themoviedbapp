@@ -9,6 +9,9 @@ import NavLinkDetailPeople from "./components/NavLinkDetailPeople";
 import ProductDetails from "./pages/ProductDetails";
 import CastDetail from "./pages/CastDetail";
 import SearchItems from "./pages/SearchItems";
+import Genres from "./pages/Genres";
+import GenreData from "./components/GenreData";
+import KeywordDetail from "./pages/KeywordDetail";
 
 const App = () => {
   return (
@@ -22,6 +25,9 @@ const App = () => {
         <Route path="/movie/:id" element={<ProductDetails />} />
         <Route path="/person/:id/:name" element={<CastDetail />} />
         <Route path="/search/query?/:inputValue" element={<SearchItems />} />
+        <Route path="/genres/:buttonName" element={<Genres />} />
+        <Route path="/genre/:id?/:name?" element={<GenreData />} />
+        <Route path="/keyword/:id?/:name?" element={<KeywordDetail />} />
       </Routes>
       <Footer />
     </Router>

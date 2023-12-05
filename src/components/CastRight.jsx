@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { Box, Card, CardMedia, Typography } from "@mui/material";
 import Loader from "./Loader";
+// import { fetchPopularMovies } from "../middleware/actions";
+// import { Link } from "react-router-dom";
 
 const CastRight = ({ knownFor, loading }) => {
   if (loading) {
@@ -13,6 +15,10 @@ const CastRight = ({ knownFor, loading }) => {
     (item) =>
       item.poster_path && item.backdrop_path && item.release_date !== null
   );
+
+  // const onCardClick = (id) => {
+  //   fetchPopularMovies(id);
+  // };
   return (
     <>
       <Box sx={{ width: "65%" }}>
@@ -32,6 +38,7 @@ const CastRight = ({ knownFor, loading }) => {
                   marginLeft: "5px",
                   marginTop: "20px",
                   position: "relative",
+                  // cursor: "pointer",
                   "@media (max-width: 1200px)": {
                     width: "20%",
                     height: "300px",
@@ -46,6 +53,23 @@ const CastRight = ({ knownFor, loading }) => {
                   },
                 }}
               >
+                {/* <Tooltip
+                  title={
+                    item.name ||
+                    item.title ||
+                    item.original_title ||
+                    item.original_name
+                  }
+                >
+                  <Link */}
+                {/* to={`/movie/${item.id}-${
+                      item.title ||
+                      item.original_title ||
+                      item.name ||
+                      item.original_name
+                    }`}
+                    onClick={() => onCardClick(item.id)}
+                  > */}
                 <CardMedia
                   component="img"
                   image={
@@ -60,8 +84,19 @@ const CastRight = ({ knownFor, loading }) => {
                   }
                   sx={{ height: "70%" }}
                 />
+                {/* </Link>
+                </Tooltip> */}
+                {/* <Tooltip
+                  title={
+                    item.name ||
+                    item.title ||
+                    item.original_name ||
+                    item.original_title
+                  }
+                > */}
                 <Typography
-                  variant="body2"
+                  variant="subtitle1"
+                  component="div"
                   sx={{
                     bottom: 0,
                     left: 0,
@@ -69,6 +104,9 @@ const CastRight = ({ knownFor, loading }) => {
                     width: "100%",
                     fontWeight: "bold",
                     fontSize: "15px",
+                    // "&:hover": {
+                    //   color: "#01B4E4",
+                    // },
                   }}
                 >
                   {item.title ||
@@ -77,6 +115,7 @@ const CastRight = ({ knownFor, loading }) => {
                     item.original_name}{" "}
                   ({item.release_date && item.release_date.slice(0, 4)})
                 </Typography>
+                {/* </Tooltip> */}
               </Card>
             ))}
           </Box>
@@ -92,4 +131,3 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, null)(CastRight);
- 
