@@ -21,6 +21,8 @@ import {
   fetchMovieCast,
   fetchFreeToWatchTvCast,
   fetchPopularOnTvCast,
+  fetchMovieKeywords,
+  fetchTvKeywords,
 } from "../middleware/actions";
 import Loader from "../components/Loader";
 import WhatspopularBtn from "../components/WhatspopularBtn";
@@ -53,6 +55,8 @@ const Home = ({
   fetchPopularOnTvCast,
   cast,
   setButtonName,
+  fetchMovieKeywords,
+  fetchTvKeywords,
 }) => {
   const [activeButton, setActiveButton] = useState("today");
   const [activeWhatsPopularBtn, setActiveWhatsPopularBtn] =
@@ -94,17 +98,19 @@ const Home = ({
   };
 
   const handleCardClick = async (itemId, buttonName) => {
-    // debugger;
     let data;
     if (buttonName === "on tv") {
       data = await fetchPopularOnTvDetail(itemId);
       fetchPopularOnTvCast(itemId);
+      fetchTvKeywords(itemId);
     } else if (buttonName === "tv") {
       data = await fetchFreeToWatchTvDetail(itemId);
       fetchFreeToWatchTvCast(itemId);
+      fetchTvKeywords(itemId);
     } else {
       data = await fetchMovieDetail(itemId);
       fetchMovieCast(itemId);
+      fetchMovieKeywords(itemId); // Fetch movie keywords
     }
     setDetailData(data);
     setButtonName(buttonName);
@@ -230,7 +236,8 @@ const mapDispatchToProps = {
   fetchMovieCast,
   fetchFreeToWatchTvCast,
   fetchPopularOnTvCast,
+  fetchMovieKeywords,
+  fetchTvKeywords,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
- 

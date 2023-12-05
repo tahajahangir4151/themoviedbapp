@@ -1,11 +1,30 @@
 import React from "react";
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import {
+  Box,
+  // Button,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { connect } from "react-redux";
 import Loader from "./Loader";
+// import { Link } from "react-router-dom";
+// import {
+//   fetchTvKeywordDataById,
+//   fetchMovieKeywordDataById,
+// } from "../middleware/actions";
 
 const imageBaseUrl = "https://image.tmdb.org/t/p/w200/";
 
-const OtherProductDetails = ({ detailData, loading }) => {
+const OtherProductDetails = ({
+  detailData,
+  loading,
+  // keywords,
+  // buttonName,
+  // fetchMovieKeywordDataById,
+  // fetchTvKeywordDataById,
+  // activeData,
+}) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   if (loading) {
@@ -13,6 +32,26 @@ const OtherProductDetails = ({ detailData, loading }) => {
   }
   const networks = detailData.networks || [];
 
+  // let keyword = keywords && keywords.keywords ? keywords.keywords : [];
+  // let keyword = keywords.keywords || [];
+
+  // if (buttonName === "on tv" || buttonName === "tv") {
+  //   keyword = keywords;
+  // } else {
+  //   keyword = keywords;
+  // }
+
+  // const handleButtonClickKeyword = (itemId) => {
+  //   if (
+  //     buttonName === "on tv" ||
+  //     buttonName === "tv" ||
+  //     activeData === "tvShows"
+  //   ) {
+  //     fetchMovieKeywordDataById(itemId);
+  //   } else if (buttonName === "tv_list") {
+  //     fetchTvKeywordDataById(itemId);
+  //   }
+  // };
   return (
     <Box>
       {detailData.status && (
@@ -169,14 +208,58 @@ const OtherProductDetails = ({ detailData, loading }) => {
           </Typography>
         </>
       )}
+      {/* <Typography
+        variant="body1"
+        sx={{
+          fontWeight: "bold",
+          fontSize: isMobile ? "13px" : "20px",
+          marginTop: "15px",
+          marginLeft: "15px",
+        }}
+      >
+        Keywords:
+      </Typography>{" "}
+      {Array.isArray(keyword) || (keyword && keyword.results)
+        ? (Array.isArray(keyword) ? keyword : keyword.results).map(
+            (keyword) => (
+              <Link
+                to={`/keyword/keyword_id?${keyword.id}/keyword_name?${keyword.name}`}
+              >
+                <Button
+                  onClick={() => handleButtonClickKeyword(keyword.id)}
+                  key={keyword.id}
+                  sx={{
+                    backgroundColor: "#E5E5E5",
+                    color: "#000000",
+                    margin: "5px",
+                    fontStyle: "italic",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {keyword.name}
+                </Button>
+              </Link>
+            )
+          )
+        : null} */}
     </Box>
   );
 };
 
 const mapStateToProps = (state) => ({
   detailData: state.detailData,
+  // keywords: state.keywords,
   loading: state.loading,
+  activeData: state.activeData,
+  buttonName: state.buttonName,
 });
 
-export default connect(mapStateToProps, null)(OtherProductDetails);
- 
+// const mapDispatchToProps = {
+//   fetchMovieKeywordDataById,
+//   fetchTvKeywordDataById,
+// };
+export default connect(
+  mapStateToProps,
+  // mapDispatchToProps
+  null
+)(OtherProductDetails);

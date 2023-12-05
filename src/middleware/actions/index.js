@@ -33,4 +33,14 @@ export { setButtonName } from "./setButtonName.action";
 export { fetchCastDetail } from "./castDetail.action";
 export { fetchKnownForCastData } from "./knownForData.action";
 export { fetchSearchResults, setSearchQuery } from "./search.action";
-export { setActiveData  } from "./activeData.action";
+export { setActiveData } from "./activeData.action";
+export { fetchMovieKeywords, fetchTvKeywords } from "./keywords.action";
+export { fetchMoviesGenres, fetchTvGenres } from "./genres.action";
+export {
+  fetchMovieGenreDataById,
+  fetchTvGenreDataById,
+} from "./genreData.action";
+export {
+  fetchMovieKeywordDataById,
+  fetchTvKeywordDataById,
+} from "./keywordData.action";
